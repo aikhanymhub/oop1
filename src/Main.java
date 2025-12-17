@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    // Список для хранения всех автомобилей
+    // List for storing all vehicles
     private List<Vehicle> inventory = new ArrayList<>();
 
-    // Конструктор для заполнения списка тестовыми данными
+    // Designer for filling the list with test data
     public Main() {
         inventory.add(new Vehicle("V001", "Toyota", "Camry", 50.0, true));
         inventory.add(new Vehicle("V002", "Honda", "CRV", 65.0, true));
@@ -15,7 +15,7 @@ public class Main {
         inventory.add(new Vehicle("V004", "Lada", "Granta", 25.0, true));
     }
 
-    // 1. Метод для отображения доступных автомобилей
+    // 1. Method for displaying available vehicles
     public void displayAvailableVehicles() {
         System.out.println("------------------------------------------");
         System.out.println("AVAILABLE CARS:");
@@ -33,20 +33,20 @@ public class Main {
         System.out.println("------------------------------------------");
     }
 
-    // 2. Метод для аренды автомобиля
+    // 2. Method for renting a car
     public void rentVehicle(String vehicleId, int rentalDays) {
         Vehicle selectedVehicle = null;
         for (Vehicle vehicle : inventory) {
             if (vehicle.getVehicleId().equalsIgnoreCase(vehicleId) && vehicle.isAvailable()) {
                 selectedVehicle = vehicle;
-                break; // Нашли нужный автомобиль
+                break; // Found the right car
             }
         }
 
         if (selectedVehicle != null) {
             double totalCost = selectedVehicle.getPricePerDay() * rentalDays;
 
-            // Сеттер используется для изменения статуса доступности
+            // The setter is used to change the availability status.
             selectedVehicle.setAvailable(false);
 
             System.out.printf("\nSuccess! You rented %s %s for %d days.\n",
@@ -57,11 +57,11 @@ public class Main {
         }
     }
 
-    // 3. Метод для возврата автомобиля
+    // 3. Method for returning a vehicle
     public void returnVehicle(String vehicleId) {
         Vehicle rentedVehicle = null;
         for (Vehicle vehicle : inventory) {
-            // Ищем по ID, и проверяем, что он *не* доступен (т.е. арендован)
+            // Search by ID and verify that it is *not* available (i.e., rented).
             if (vehicle.getVehicleId().equalsIgnoreCase(vehicleId) && !vehicle.isAvailable()) {
                 rentedVehicle = vehicle;
                 break;
@@ -69,7 +69,7 @@ public class Main {
         }
 
         if (rentedVehicle != null) {
-            // Сеттер используется для изменения статуса доступности обратно
+            // The setter is used to change the availability status back.
             rentedVehicle.setAvailable(true);
             System.out.printf("\nSuccess! The vehicle %s %s has been returned.\n\n",
                     rentedVehicle.getBrand(), rentedVehicle.getModel());
@@ -91,7 +91,7 @@ public class Main {
             System.out.print("Choose an action: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Очистка буфера
+            scanner.nextLine(); // Buffer clearing
 
             switch (choice) {
                 case 1:
