@@ -83,7 +83,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("===== Vehicle Rental System =====");
+            System.out.println("===== Vehicle Rental System1 =====");
             System.out.println("1. View available cars");
             System.out.println("2. Rent a car");
             System.out.println("3. Return a car");
