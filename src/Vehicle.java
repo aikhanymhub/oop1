@@ -1,22 +1,38 @@
 public class Vehicle {
-    private String vehicleId;
+
+    private int id;
     private String brand;
     private String model;
-    private double pricePerDay;
-    private boolean isAvailable;
+    private boolean isRented;
 
-    public Vehicle(String vehicleId, String brand, String model, double pricePerDay){
-        this.vehicleId = vehicleId;
+    public Vehicle(int id, String brand, String model) {
+        this.id = id;
         this.brand = brand;
         this.model = model;
-        this.pricePerDay = pricePerDay;
-        this.isAvailable = true;
+        this.isRented = false;
     }
 
-    public String getVehicleId() { return vehicleId; }
-    public String getBrand() { return brand; }
-    public String getModel() { return model; }
-    public double getPricePerDay() { return pricePerDay; }
-    public boolean isAvailable() { return isAvailable; }
-    public void setAvailable(boolean available) { isAvailable = available; }
+    public int getId() {
+        return id;
+    }
+
+    public boolean isRented() {
+        return isRented;
+    }
+
+    public void rent() {
+        isRented = true;
+    }
+
+    public void giveBack() {
+        isRented = false;
+    }
+
+    public void showInfo() {
+        System.out.println("ID: " + id);
+        System.out.println("Brand: " + brand);
+        System.out.println("Model: " + model);
+        System.out.println("Rented: " + isRented);
+        System.out.println("---------------------");
+    }
 }
