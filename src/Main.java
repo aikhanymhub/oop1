@@ -5,7 +5,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         RentalService service = new RentalService();
 
-        // 1. Создаем одного конкретного клиента через латинское 'Customer'
         System.out.print("Enter your name: ");
         String customerName = scanner.nextLine();
         Customer customer = new Customer(customerName);
@@ -19,7 +18,7 @@ public class Main {
             System.out.print("Choose an action: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Очистка буфера
+            scanner.nextLine(); // буферді тазалау
 
             switch (choice) {
                 case 1:
@@ -31,12 +30,10 @@ public class Main {
                     System.out.print("How many days? ");
                     int days = scanner.nextInt();
                     scanner.nextLine();
-                    // Передаем переменную 'customer' (с маленькой буквы)
-                    service.rentVehicle(Сustomer, rentId, days);
+                    service.rentVehicle(customer, rentId, days);
                     break;
                 case 3:
-                    // Используем ту же переменную 'customer'
-                    service.returnVehicle(Сustomer);
+                    service.returnVehicle(customer);
                     break;
                 case 4:
                     System.out.println("Thank you for using the system. Goodbye!");

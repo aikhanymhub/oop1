@@ -1,5 +1,3 @@
-import java.lang.classfile.CustomAttribute;
-
 public class RentalService {
     private Vehicle car1;
     private Vehicle car2;
@@ -17,7 +15,7 @@ public class RentalService {
             System.out.println(car2.getVehicleId() + " | " + car2.getBrand() + " | " + car2.getModel() + " | $" + car2.getPricePerDay());
     }
 
-    public void rentVehicle(Сustomer customer, String id, int days) {
+    public void rentVehicle(Customer customer, String id, int days) {
         if (car1.getVehicleId().equals(id) && car1.isAvailable()) {
             car1.setAvailable(false);
             customer.rentVehicle(car1);
@@ -31,7 +29,7 @@ public class RentalService {
         }
     }
 
-    public void returnVehicle(Сustomer customer) {
+    public void returnVehicle(Customer customer) {
         Vehicle rented = customer.getRentedVehicle();
         if (rented != null) {
             rented.setAvailable(true);
