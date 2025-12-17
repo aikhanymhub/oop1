@@ -1,89 +1,17 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-
-    // List for storing all vehicles
-    private List<Vehicle> inventory = new ArrayList<>();
-
-    // Designer for filling the list with test data
-    public Main() {
-        inventory.add(new Vehicle("V001", "Toyota", "Camry", 50.0, true));
-        inventory.add(new Vehicle("V002", "Honda", "CRV", 65.0, true));
-        inventory.add(new Vehicle("V003", "Mercedes", "C-Class", 120.0, true));
-        inventory.add(new Vehicle("V004", "Lada", "Granta", 25.0, true));
-    }
-
-    // 1. Method for displaying available vehicles
-    public void displayAvailableVehicles() {
-        System.out.println("------------------------------------------");
-        System.out.println("AVAILABLE CARS:");
-        System.out.println("ID | Brand | Model | Price per day");
-        System.out.println("------------------------------------------");
-        for (Vehicle vehicle : inventory) {
-            if (vehicle.isAvailable()) {
-                System.out.printf("%s | %s | %s | %.2f$\n",
-                        vehicle.getVehicleId(),
-                        vehicle.getBrand(),
-                        vehicle.getModel(),
-                        vehicle.getPricePerDay());
-            }
-        }
-        System.out.println("------------------------------------------");
-    }
-
-    // 2. Method for renting a car
-    public void rentVehicle(String vehicleId, int rentalDays) {
-        Vehicle selectedVehicle = null;
-        for (Vehicle vehicle : inventory) {
-            if (vehicle.getVehicleId().equalsIgnoreCase(vehicleId) && vehicle.isAvailable()) {
-                selectedVehicle = vehicle;
-                break; // Found the right car
-            }
-        }
-
-        if (selectedVehicle != null) {
-            double totalCost = selectedVehicle.getPricePerDay() * rentalDays;
-
-            // The setter is used to change the availability status.
-            selectedVehicle.setAvailable(false);
-
-            System.out.printf("\nSuccess! You rented %s %s for %d days.\n",
-                    selectedVehicle.getBrand(), selectedVehicle.getModel(), rentalDays);
-            System.out.printf("Total rental cost: %.2f$\n\n", totalCost);
-        } else {
-            System.out.println("\n Error: Vehicle with this ID not found or unavailable.\n\n");
-        }
-    }
-
-    // 3. Method for returning a vehicle
-    public void returnVehicle(String vehicleId) {
-        Vehicle rentedVehicle = null;
-        for (Vehicle vehicle : inventory) {
-            // Search by ID and verify that it is *not* available (i.e., rented).
-            if (vehicle.getVehicleId().equalsIgnoreCase(vehicleId) && !vehicle.isAvailable()) {
-                rentedVehicle = vehicle;
-                break;
-            }
-        }
-
-        if (rentedVehicle != null) {
-            // The setter is used to change the availability status back.
-            rentedVehicle.setAvailable(true);
-            System.out.printf("\nSuccess! The vehicle %s %s has been returned.\n\n",
-                    rentedVehicle.getBrand(), rentedVehicle.getModel());
-        } else {
-            System.out.println("\nError: A vehicle with this ID has not been rented, or the ID is incorrect.\n");
-        }
-    }
-
     public static void main(String[] args) {
-        Main rentalSystem = new Main();
         Scanner scanner = new Scanner(System.in);
+        RentalService service = new RentalService();
+
+        // 1. Создаем одного конкретного клиента через латинское 'Customer'
+        System.out.print("Enter your name: ");
+        String customerName = scanner.nextLine();
+        Customer customer = new Customer(customerName);
 
         while (true) {
-            System.out.println("===== Vehicle Rental System1 =====");
+            System.out.println("\n===== Vehicle Rental System =====");
             System.out.println("1. View available cars");
             System.out.println("2. Rent a car");
             System.out.println("3. Return a car");
@@ -91,31 +19,31 @@ public class Main {
             System.out.print("Choose an action: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Buffer clearing
+            scanner.nextLine(); // Очистка буфера
 
             switch (choice) {
                 case 1:
-                    rentalSystem.displayAvailableVehicles();
+                    service.displayAvailableVehicles();
                     break;
                 case 2:
                     System.out.print("Enter Vehicle ID to rent: ");
                     String rentId = scanner.nextLine();
                     System.out.print("How many days? ");
-                    int rentDays = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-                    rentalSystem.rentVehicle(rentId, rentDays);
+                    int days = scanner.nextInt();
+                    scanner.nextLine();
+                    // Передаем переменную 'customer' (с маленькой буквы)
+                    service.rentVehicle(Сustomer, rentId, days);
                     break;
                 case 3:
-                    System.out.print("Enter Vehicle ID to return: ");
-                    String returnId = scanner.nextLine();
-                    rentalSystem.returnVehicle(returnId);
+                    // Используем ту же переменную 'customer'
+                    service.returnVehicle(Сustomer);
                     break;
                 case 4:
                     System.out.println("Thank you for using the system. Goodbye!");
                     scanner.close();
-                    return; // Exit the program
+                    return;
                 default:
-                    System.out.println("Invalid choice. Please try again.");
+                    System.out.println("Invalid choice. Try again.");
             }
         }
     }
